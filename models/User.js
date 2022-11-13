@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model, VirtualType } = require("mongoose");
 // const thoughtSchema = require("./Thought");
 
 // Schema to create User model
@@ -19,7 +19,7 @@ const userSchema = new Schema(
         "Please fill a valid email address",
       ],
     },
-    // thoughts: [{ type: mongoose.Schema.Types.ObjectId, ref: "thought" }],
+    thoughts: [{ type: Schema.Types.ObjectId, ref: "thought" }],
 
     friends: [{ type: Schema.Types.ObjectId, ref: "user" }],
   },
@@ -29,6 +29,10 @@ const userSchema = new Schema(
     },
   }
 );
+
+userSchema.virtual("friendCount").get(function () {
+  return this.friends.length;
+});
 
 const User = model("user", userSchema);
 

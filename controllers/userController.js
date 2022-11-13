@@ -1,8 +1,6 @@
 const { ObjectId } = require("mongoose").Types;
 const { User } = require("../models");
 
-//createusrs async and must accept req and res as parameters
-
 const createUser = async (req, res) => {
   try {
     const user = await User.create(req.body);
